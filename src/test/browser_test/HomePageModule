@@ -1,0 +1,6 @@
+import geb.Page
+
+class HomPageModule extends Page {
+
+    static at = { title.startsWith("The Book Of Geb") }
+}

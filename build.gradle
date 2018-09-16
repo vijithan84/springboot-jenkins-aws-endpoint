@@ -3,25 +3,59 @@ buildscript {
 		springBootVersion = '2.0.5.RELEASE'
 	}
 	repositories {
-		mavenCentral()
+		maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE')
+// tag::build[]
+        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
+// end::build[]
+    }
 }
 
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.palantir.docker'
+// tag::plugin[]
+apply plugin: 'com.palantir.docker'
+// end::plugin[]
+
+
 
 group = 'com.aws-jenkins-cd'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+bootJar {
+    baseName = 'gs-spring-boot-docker'
+    version =  '0.1.0'
+}
+
+// tag::task[]
+docker {
+    dependsOn build
+    name "${project.group}/${bootJar.baseName}"
+    files bootJar.archivePath
+    buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardError"
+    }
+}
+
+// end::task[]
+
 repositories {
 	mavenCentral()
 }
+
 
 
 dependencies {
