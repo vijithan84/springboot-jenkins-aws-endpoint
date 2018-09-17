@@ -11,4 +11,9 @@ class HelloController {
     {
         return 'Hello from jenkins'
     }
+    @RequestMapping('/welcome')
+    String welcome()
+    {
+        return 'Hello from jenkins'
+    }
 }
