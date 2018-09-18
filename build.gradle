@@ -32,7 +32,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 bootJar {
-    baseName = 'gs-spring-boot-docker'
+    baseName = 'myspringboot'
     version =  '0.1.0'
 }
 
