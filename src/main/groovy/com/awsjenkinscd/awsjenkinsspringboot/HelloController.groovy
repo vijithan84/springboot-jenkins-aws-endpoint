@@ -14,6 +14,6 @@ class HelloController {
     @RequestMapping('/welcome')
     String welcome()
     {
-        return 'Hello world fgjlkdfjgld dfgfhdfghkdfjg'
+        return 'Hello world fgjlkdfjgld dfgfhdfghkd dfhruhre'
     }
 }
